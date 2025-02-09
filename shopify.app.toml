@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "55bc5f6c19b77dacb9a19a9f608b0aec"
+application_url = "https://terrathreads-custom-app-mauve.vercel.app"
+embedded = true
+name = "Meals"
+handle = "terrathreads-meals"
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "sasi-terrathread.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_products"
+
+[webhooks]
+api_version = "2025-01"
+
+[auth]
+redirect_urls = [
+  "https://terrathreads-custom-app-mauve.vercel.app/auth/callback",
+  "https://terrathreads-custom-app-mauve.vercel.app/auth/shopify/callback",
+  "https://terrathreads-custom-app-mauve.vercel.app/api/auth/callback"
+]
+
+[pos]
+embedded = false

@@ -1,0 +1,82 @@
+<style>
+  .hero-text-container {
+    font-size: {{ block.settings.font_size }}px;
+    background-color: {{ block.settings.background_color }};
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .hero-text {
+    color: {{ block.settings.hero_text_color }};
+  }
+  
+  .customer-count {
+    color: {{ block.settings.customer_count_color }};
+  }
+</style>
+
+{% if shop.metafields.custom.customer_count %}
+<div class="page-width">
+  <div class="rich-text__blocks center mobile-center hero-text-container">
+      <span class="hero-text">{{ block.settings.meals_text }}</span>
+      {% assign number = shop.metafields.custom.customer_count %}
+      {% assign reversed = number | split: "" | reverse %}
+      {% assign formatted_number = "" %}
+      
+      {% for digit in reversed %}
+          {% assign mod_check = forloop.index0 | modulo: 80 %}
+          {% if forloop.index != 30 and mod_check == 0 %}
+              {% assign formatted_number = ',' | append: formatted_number %}
+          {% endif %}
+          {% assign formatted_number = digit | append: formatted_number %}
+      {% endfor %}
+      <span class="customer-count">{{ formatted_number }}</span>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Meals text",
+    "target": "section",
+
+    "settings": [
+        {
+            "type": "text",
+            "id": "meals_text",
+            "default": "Served customers ",
+            "label": "Meals text",
+            "info": "Add your meals text here"
+        },
+        {
+            "type": "range",
+            "id": "font_size",
+            "label": "Font Size",
+            "step": 1,
+            "min": 10,
+            "max": 40,
+            "default": 20
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color",
+            "default": "#f0f0f0"
+        },
+        {
+            "type": "color",
+            "id": "hero_text_color",
+            "label": "Hero Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "customer_count_color",
+            "label": "Customer Count Color",
+            "default": "#000000"
+        }
+    ]
+}
+{% endschema %}
